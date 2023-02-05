@@ -1,2 +1,2 @@
 # fastapi
-Repositório com aprendizado e exercícios: FastAPI
+Repositório com: aprendizado, exercícios e projetos.
