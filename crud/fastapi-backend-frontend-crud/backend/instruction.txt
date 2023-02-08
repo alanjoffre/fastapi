@@ -1,15 +1,17 @@
 # Instrução:
 
-- Instale o VSCODE
-- Intale o Postgresql
+- Importante: Instruções abaixo para pessoas que estão estudando e possuem dificuldade para rodar o projeto em seu equipamento.
 
-- Em alguns momentos será copiado o código do projeto principal, baixado pelo GitHub, para o que está sendo criado!
+- Instale o VSCODE.
+- Intale o Postgresql.
+
+- Atenção, será solicitado a copia do arquivo original (Github), para o projeto principal em alguns momentos.
 
 - Pelo Terminal do VSCODE, acesse o diretório onde será criado o projeto.
-- Digite: poetry new backend
-- Renomei o diretório: backend\backend para backend\app
+- Digite: poetry new backend.
+- Renomei o diretório: 'backend\backend' para 'backend\app'.
 
-- Copie o conteudo do arquivo: backend\py.toml para o do mesmo nome no seu projeto.
+- Atualize as linhas do arquivo: backend\pyproject.toml 
 
 [tool.poetry]
 name = "app"
@@ -25,66 +27,52 @@ python = "^3.9"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-- Instale a biblioteca : pip install poetry.
+[tool.poetry.scripts]
+start= "app.main:start"
+
+- Digite o seguinte comando, para instalar a biblioteca Poetry no diretório do projeto: pip install poetry
+- Digite o seguinte comando, para instalar a biblioteca Uvicorn no diretório do projeto: poetry add fastapi uvicorn
 
 - Dentro do diretório: 'backend\app' crie um aqrquivo: main.py
 
-- Crie o ambiente virtual (prompt de comando): python -m venv venv
-- Ative o ambiente virtual (prompt de comando): .\venv\Scripts\Activate.bat
+- Comando para quem utiliza Prompt-comando
+- Crie o ambiente virtual: python -m venv venv
+- Ative o ambiente virtual: .\venv\Scripts\Activate.bat
 
-- Pelo terminal do VSCODE, acesse o diretório 'backend' e digite: poetry add fastapi uvicorn
+- Comando para quem utiliza PowerShell
+- Crie o ambiente virtual: python -m venv venv
+- Ative o ambiente virtual: .\venv\Scripts\Activate.ps1
 
-- Atualize o arquivo com o código: backend\app\main.py
+- Copie o arquivo 'main.py' do projeto principal baixado e copie para 'backend\app'
 
-- Digite no terminal para instalar: poetry add sqlmodel
-- Digite no terminal para instalar: poetry add sqlalchemy
-- Digite no terminal para instalar: poetry add asyncpg
-- Digite no terminal para instalar: poetry add psycopg2
-- Digite no terminal para instalar: poetry add pydantic
-- Digite no terminal para instalar: poetry add alembic
+- Digite no terminal para instalar a seguinte biblioteca: poetry add sqlmodel
+- Digite no terminal para instalar a seguinte biblioteca: poetry add sqlalchemy
+- Digite no terminal para instalar a seguinte biblioteca: poetry add asyncpg
+- Digite no terminal para instalar a seguinte biblioteca: poetry add psycopg2
+- Digite no terminal para instalar a seguinte biblioteca: poetry add pydantic
+- Digite no terminal para instalar a seguinte biblioteca: poetry add alembic
 
-- Copie o arquivo 'config.py' em 'backend\app' do backup
-from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
-from sqlalchemy.orm import sessionmaker
-from sqlmodel import SQLModel
-
-DB_CONFIG = f"postgresql+asyncpg://postgres:postgres@localhost:5432/test"
-
-
-class AsyncDatabaseSession:
-
-    def __init__(self):
-        self.session = None
-        self.engine = None
-
-    def __getattr__(self, name):
-        return getattr(self.session, name)
-
-    def init(self):
-        self.engine = create_async_engine(DB_CONFIG, future=True, echo=True,pool_size=10, max_overflow=20)
-        self.session = sessionmaker(self.engine, expire_on_commit=False, class_=AsyncSession)()
-
-    async def create_all(self):
-        async with self.engine.begin() as conn:
-            await conn.run_sync(SQLModel.metadata.create_all)
-
-
-db = AsyncDatabaseSession()
-
-
-async def commit_rollback():
-    try:
-        await db.commit()
-    except Exception:
-        await db.rollback()
-        raise
+- Copie o arquivo 'config.py' do projeto principal baixado e cole em 'backend\app' 
+- Atente para a seguinte linha: DB_CONFIG = f"postgresql+asyncpg://postgres:postgres@localhost:5432/test"
+- Insira o seu usuário e senha do PostgreSQL: DB_CONFIG = f"postgresql+asyncpg://SEU-USUARIO:SUA-SENHA@localhost:5432/test"
 
 - Digite: poetry export --without-hashes --format=requirements.txt >requirements.txt
 - Digite: pip install -r .\requirements.txt
 
+- Copie a pasta 'backend\app\models' do projeto baixado para 'backend\app' do seu projeto.
+
 - Digite: alembic init migrations
+
+- Copie a pasta 'backend\migration\env' do projeto baixado para 'backend\' do seu projeto.
+
 - Digite: alembic revision --autogenerate -m "init_table"
 - Digite: alembic upgrade head
+
+- Acesse o programa Pgadmin e verifique se o databases: Test foi criado.
+
+- Copie a pasta 'backend\repository' do projeto baixado para 'backend\' do seu projeto.
+
+- Copie a pasta 'backend\controller' do projeto baixado para 'backend\' do seu projeto.
 
 - Acesse pelo teminal do Vscode o diretório para inicar o servidor poetry: backend 
 - Digite o seguinte comando para rodar o projeto: poetry run start
