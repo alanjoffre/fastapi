@@ -1,4 +1,4 @@
-# Intruction
+# Instrução:
 
 - Instale o VSCODE
 - Intale o Postgresql
