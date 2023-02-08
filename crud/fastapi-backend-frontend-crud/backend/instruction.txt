@@ -1,0 +1,92 @@
+# Intruction
+
+- Instale o VSCODE
+- Intale o Postgresql
+
+- Em alguns momentos será copiado o código do projeto principal, baixado pelo GitHub, para o que está sendo criado!
+
+- Pelo Terminal do VSCODE, acesse o diretório onde será criado o projeto.
+- Digite: poetry new backend
+- Renomei o diretório: backend\backend para backend\app
+
+- Copie o conteudo do arquivo: backend\py.toml para o do mesmo nome no seu projeto.
+
+[tool.poetry]
+name = "app"
+version = "0.1.0"
+description = ""
+authors = ["SEU-NOME <seu-email>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+- Instale a biblioteca : pip install poetry.
+
+- Dentro do diretório: 'backend\app' crie um aqrquivo: main.py
+
+- Crie o ambiente virtual (prompt de comando): python -m venv venv
+- Ative o ambiente virtual (prompt de comando): .\venv\Scripts\Activate.bat
+
+- Pelo terminal do VSCODE, acesse o diretório 'backend' e digite: poetry add fastapi uvicorn
+
+- Atualize o arquivo com o código: backend\app\main.py
+
+- Digite no terminal para instalar: poetry add sqlmodel
+- Digite no terminal para instalar: poetry add sqlalchemy
+- Digite no terminal para instalar: poetry add asyncpg
+- Digite no terminal para instalar: poetry add psycopg2
+- Digite no terminal para instalar: poetry add pydantic
+- Digite no terminal para instalar: poetry add alembic
+
+- Copie o arquivo 'config.py' em 'backend\app' do backup
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+from sqlalchemy.orm import sessionmaker
+from sqlmodel import SQLModel
+
+DB_CONFIG = f"postgresql+asyncpg://postgres:postgres@localhost:5432/test"
+
+
+class AsyncDatabaseSession:
+
+    def __init__(self):
+        self.session = None
+        self.engine = None
+
+    def __getattr__(self, name):
+        return getattr(self.session, name)
+
+    def init(self):
+        self.engine = create_async_engine(DB_CONFIG, future=True, echo=True,pool_size=10, max_overflow=20)
+        self.session = sessionmaker(self.engine, expire_on_commit=False, class_=AsyncSession)()
+
+    async def create_all(self):
+        async with self.engine.begin() as conn:
+            await conn.run_sync(SQLModel.metadata.create_all)
+
+
+db = AsyncDatabaseSession()
+
+
+async def commit_rollback():
+    try:
+        await db.commit()
+    except Exception:
+        await db.rollback()
+        raise
+
+- Digite: poetry export --without-hashes --format=requirements.txt >requirements.txt
+- Digite: pip install -r .\requirements.txt
+
+- Digite: alembic init migrations
+- Digite: alembic revision --autogenerate -m "init_table"
+- Digite: alembic upgrade head
+
+- Acesse pelo teminal do Vscode o diretório para inicar o servidor poetry: backend 
+- Digite o seguinte comando para rodar o projeto: poetry run start
+- Para acessar o projeto: localhost:888/docs
+
