@@ -78,3 +78,6 @@ start= "app.main:start"
 - Digite o seguinte comando para rodar o projeto: poetry run start
 - Para acessar o projeto: localhost:888/docs
 
+Créditos Lemoncode21: https://www.youtube.com/watch?v=-e7X5KqVHvM
+
+
