@@ -1,0 +1,75 @@
+# FastAPI - Redis - Json
+
+- Instrução para que o projeto funcione:
+- Crie o diretório: fastapi-redisjson
+- Copie as pastas: app e redis do projeto baixado pelo Github
+- Instale o docker desktop
+- Efetue a configuração padrão solicitado pelo software
+- Acesse o diretório: fastapi-redisjson\redis
+- Digite o seguinte comando pelo terminal VSCOE: docker compose up
+
+- Abra o docker desktop
+- Procure: redis_fastapi_db
+- Clique na opção para abrir via browser
+- Altere a url para: localhost:8081
+- Entre com login e senha: admin:admin
+- Clique em local{redis} e crie uma: ADD KEY
+- Key: Test e Value: Test
+- Abaixo de local{red}, selecione a subchave
+
+- Digite o seguinte comando pelo terminal VSCOE: docker compose up -d
+- Acesse o diretório pelo terminal VSCODE: fastapi-redisjson\app
+
+- Comando para criar o ambiente virtual no PowerShell: python -m venv venv
+- Comando para ativar o ambiente virtual no PowerShell: .\venv\Scripts\Activate.ps1
+
+- Digite o seguinte comando para instalar: pip install fastapi uvicorn
+
+- Digite o seguinte comando: python -m uvicorn main:app --reload
+
+- Instale a extensão no VSCODE: Thunder Client
+- selecione GET localhost:8080/
+- GET e Altere o campo de url para: http://127.0.0.1:8000
+- Clique em SEND
+
+- Digite o seguinte comando para instalar: pip install redis_om
+
+- Digite o seguinte comando: python -m uvicorn main:app --reload
+
+- Acesse a extensão Thunder Client pelo VSCODE
+
+- Altere para 'POST'e url: http://127.0.0.1:8000/task
+- Clique no campo Body
+- Clique no campo Json
+- Adicione as seguintes linhas no campo: Json Content
+
+{
+  "name": "my code",
+  "description": "my code"
+}
+
+-Clique no botão: SEND
+
+- Abra o docker desktop
+- Procure: redis_fastapi_db
+- Clique na opção para abrir via browser
+- Altere a url para: localhost:8081
+- Entre com login e senha: admin:admin
+- Verifique se os dados inseridos estão em: local/schema.Task/.......
+
+- 'GET'e url: http://127.0.0.1:8000/tasks
+- Consulta de todas as tarefas na base de dados.
+
+- 'PUT'e url: http://127.0.0.1:8000/task/01GRSYDJK5AW1KQ7C55QJBRN8F
+- Informe os dados a serem atualizados.
+{
+  "name": "ajma ajma",
+  "description": "ajma 123"
+}
+
+- 'DELETE'e url: http://127.0.0.1:8000/task/01GRSYDJK5AW1KQ7C55QJBRN8F
+- O dado será deletado.
+
+
+
+
