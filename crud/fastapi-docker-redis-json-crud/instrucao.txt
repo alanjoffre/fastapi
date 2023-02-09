@@ -1,4 +1,4 @@
-# FastAPI - Redis - Json
+# FastAPI - Docker - Redis - Json - CRUD
 
 - Instrução para que o projeto funcione:
 - Crie o diretório: fastapi-redisjson
