@@ -1,0 +1,23 @@
+# Instrução:
+
+- Importante: Instruções abaixo para pessoas que estão estudando e que tenham dificuldades para rodar o projeto em seu equipamento.
+
+- Acessar o diretório principal onde será criado o projeto: frontend
+- Executar o seguinte comando para criar o projeto (VSCODE): npx create-react-app frontend
+- Executar o seguinte comando: npm install -D tailwindcss autoprefixer
+- Executar o seguinte comando: npx tailwindcss init -p
+
+- Substitua os arquivos baixados (github) da pasta 'frontend' para o diretório criado.
+
+- Digite o seguinte comando para instalar: npm i daisyui
+- Digite o seguinte comando para instalar: npm install axios
+
+- Importante: Abra outro terminal pelo VSCODE e rode o projeto backend, assim as nformações subirão no frontend.
+-Comando para rodar o projeto: npm run start
+
+
+Créditos Lemoncode21: https://www.youtube.com/watch?v=-e7X5KqVHvM
+
+
+
+
